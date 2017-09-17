@@ -48,7 +48,6 @@ node('maven') {
         		input message: "Promote to STAGE?", ok: "Promote"
         }
 
-
 	   sh "oc project ${IT_PROJECT}"
 	   // tag for stage
 	   sh "oc tag ${DEV_PROJECT}/${APP_NAME}:latest ${IT_PROJECT}/${APP_NAME}:${version}"
