@@ -28,12 +28,14 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
+import org.springframework.stereotype.Component;
 
 import net.vargadaniel.re.reportfactory.dummy.model.DummyReport;
 import net.vargadaniel.re.reportfactory.dummy.model.DummyReport.DailiyDummyReportStats;
 import net.vargadaniel.re.reportfactory.dummy.model.DummyReportOrder;
 import net.vargadaniel.re.reportfactory.dummy.model.DummyTransaction;
 
+@Component
 @EnableBinding(ReportEngine.class)
 public class DummyReportEngine {
 
