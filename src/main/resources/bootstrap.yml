@@ -5,24 +5,24 @@ spring:
       config:
          uri: http://report-config-server:8080/  
       stream:
-        bindings:
-          products:
-            destination: productsTopic
-            content-type: application/json
-            group: report-factory
-          orders:
-            destination: ordersTopic
-            content-type: application/json
-            group: report-factory
-          statusUpdates:
-            destination: statusUpdatesTopic
-            content-type: application/json
-            group: report-factory
-          reportFiles:
-            destination: reportFileTopic
-            content-type: text/plain
-            group: report-factory
-          rabbit:
-            binder:
-              nodes: rabbitmq
-              adminAddresses: rabbitmq
+         bindings:
+            products:
+               destination: productsTopic
+               content-type: application/json
+               group: report-factory
+            orders:
+               destination: ordersTopic
+               content-type: application/json
+               group: report-factory
+            statusUpdates:
+               destination: statusUpdatesTopic
+               content-type: application/json
+               group: report-factory
+            reportFiles:
+               destination: reportFileTopic
+               content-type: text/plain
+               group: report-factory
+            rabbit:
+               binder:
+                  nodes: rabbitmq
+                  adminAddresses: rabbitmq
