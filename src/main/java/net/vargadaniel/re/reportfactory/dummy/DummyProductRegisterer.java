@@ -15,7 +15,7 @@ public class DummyProductRegisterer {
 	static final Logger logger = LoggerFactory.getLogger(DummyProductRegisterer.class);
 
 	@RequestMapping("/register")
-	@InboundChannelAdapter(channel=ReportEngine.PRODUCTS, poller= @Poller(fixedDelay="1"))
+	@InboundChannelAdapter(channel=ReportEngine.PRODUCTS, poller= @Poller(maxMessagesPerPoll="1", fixedRate="10000"))
 	public DummyReportMeta registerProduct() {
 		DummyReportMeta drMeta = new DummyReportMeta();
 		return drMeta;
