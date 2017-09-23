@@ -8,14 +8,14 @@ import org.springframework.integration.annotation.Poller;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Component
-@EnableBinding(ReportEngine.class)
+//@Component
+//@EnableBinding(ReportEngine.class)
 public class DummyProductRegisterer {
 	
 	static final Logger logger = LoggerFactory.getLogger(DummyProductRegisterer.class);
 
-	@RequestMapping("/register")
-	@InboundChannelAdapter(channel=ReportEngine.PRODUCTS, poller= @Poller(fixedDelay="1"))
+//	@RequestMapping("/register")
+//	@InboundChannelAdapter(channel=ReportEngine.PRODUCTS, poller= @Poller(fixedDelay="1"))
 	public DummyReportMeta registerProduct() {
 		DummyReportMeta drMeta = new DummyReportMeta();
 		return drMeta;
