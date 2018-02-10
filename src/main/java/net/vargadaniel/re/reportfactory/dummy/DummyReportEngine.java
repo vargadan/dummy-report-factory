@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import javax.xml.bind.JAXBContext;
@@ -174,10 +173,10 @@ public class DummyReportEngine {
 		return report;
 	}
 
-	void statusUpdate(Long orderId, String status) {
+	void statusUpdate(String orderId, String status) {
 		log.info("statusupdate for orderId " + orderId + " status : " + status);
 		reportEngine.statusUpdates()
-				.send(MessageBuilder.withPayload(new StatusUpdate(Long.toString(orderId), status)).build());
+				.send(MessageBuilder.withPayload(new StatusUpdate(orderId, status)).build());
 	}
 	
 	String convertReportToXml(DummyReport report) throws JAXBException {
@@ -194,7 +193,7 @@ public class DummyReportEngine {
 		return xml;
 	}
 
-	void publishReport(Long orderId, DummyReport report) throws JAXBException {
+	void publishReport(String orderId, DummyReport report) throws JAXBException {
 		String xml = convertReportToXml(report);
 		log.info("XML report for order {} is : \n{}", orderId, xml);
 		Message<String> reportFileMsg = MessageBuilder.withPayload(xml).setHeader("orderId", orderId)

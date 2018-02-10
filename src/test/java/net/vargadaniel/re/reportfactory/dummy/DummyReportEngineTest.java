@@ -1,6 +1,7 @@
 package net.vargadaniel.re.reportfactory.dummy;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,11 +27,11 @@ public class DummyReportEngineTest {
 	public void testNormalOrder() throws Exception {
 		DummyReportOrder order = new DummyReportOrder();
 		
-		order.setId(1l);
-		order.setProperties(new HashMap<>());
-		order.getProperties().put(DummyReportMeta.RPOP_CIF, "1");
-		order.getProperties().put(DummyReportMeta.PROP_FROM_DATE, "2017-01-01");
-		order.getProperties().put(DummyReportMeta.PROP_TO_DATE, "2017-01-31");
+		order.setId(UUID.randomUUID().toString());
+		order.setProperties(new DummyReportOrder.Properties());
+		order.getProperties().setCif("1");
+		order.getProperties().setFrom("2017-01-01");
+		order.getProperties().setTo("2017-01-31");
 		
 		DummyReport report = engine.processOrder(order);
 		
