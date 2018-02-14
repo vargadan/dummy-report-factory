@@ -7,10 +7,10 @@ import org.springframework.messaging.SubscribableChannel;
 
 public interface ReportEngine {
 	
-	String PRODUCTS = "products";
-	String ORDERS = "orders";
-	String STATUS_UPDATES = "statusUpdates";
-	String REPORT_FILES = "reportFiles";
+	final String PRODUCTS = "products";
+	final String ORDERS = "orders";
+	final String STATUS_UPDATES = "statusUpdates";
+	final String REPORT_FILES = "reportFiles";
 	
 	@Input(ORDERS)
 	SubscribableChannel orders();
