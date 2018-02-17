@@ -44,7 +44,7 @@ def envSetup(project, appName, version, recreate) {
 		script: "oc get deploymentconfig -l app=${appName} -n ${project}",
 		returnStdout: true
 	).trim()
-	echo "New app : ${NEW_APP_OUT}"
+	echo "GET_DC_OUT : ${GET_DC_OUT}"
 	if (recreate && GET_DC_OUT.contains(appName)) {
 		sh "oc delete deploymentconfig,service,routes -l app=${appName} -n ${project}"
    	}
