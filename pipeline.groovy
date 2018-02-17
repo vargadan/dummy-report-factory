@@ -22,13 +22,13 @@ node('maven') {
 	   	//tag for version in DEV imagestream
 	   	sh "oc tag ${CICD_PROJECT}/${APP_NAME}:latest ${CICD_PROJECT}/${APP_NAME}:${version}"
 	   	sh "oc tag ${CICD_PROJECT}/${APP_NAME}:latest ${DEV_PROJECT}/${APP_NAME}:latest"
-		envSetup(DEV_PROJECT, APP_NAME, 'latest', true)
+		envSetup(DEV_PROJECT, APP_NAME, 'latest', false)
 	}
 
    	stage ('Deploy to IT') {
         //put into IT imagestream
         sh "oc tag ${CICD_PROJECT}/${APP_NAME}:latest ${QA_PROJECT}/${APP_NAME}:latest"
-        envSetup(QA_PROJECT, APP_NAME, 'latest', true)
+        envSetup(QA_PROJECT, APP_NAME, 'latest', false)
 	}
 	
    	stage ('Deploy to PROD') {
@@ -40,15 +40,16 @@ node('maven') {
 }
 
 def envSetup(project, appName, version, recreate) {
-	NEW_APP = sh (
-		script: "oc new-app ${appName}:${version} -n ${project}",
+	GET_DC_OUT = sh (
+		script: "oc get deploymentconfig -l app=${appName} -n ${project}",
 		returnStdout: true
 	).trim()
-	echo "New app : ${NEW_APP}"
-	if (recreate) {
+	echo "New app : ${NEW_APP_OUT}"
+	if (recreate && GET_DC_OUT.contains(appName)) {
 		sh "oc delete deploymentconfig,service,routes -l app=${appName} -n ${project}"
-   		sh "oc expose svc ${appName} -n ${project}"
    	}
+    	sh "oc new-app ${appName}:${version} -n ${project}"
+   	sh "oc expose svc ${appName} -n ${project}"
 }
 
 def version() {
