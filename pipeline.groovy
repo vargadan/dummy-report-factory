@@ -28,13 +28,13 @@ node('maven') {
    	stage ('Deploy to IT') {
         //put into IT imagestream
         sh "oc tag ${CICD_PROJECT}/${APP_NAME}:latest ${IT_PROJECT}/${APP_NAME}:latest"
-        envSetup(QA_PROJECT, APP_NAME, 'latest', true)
+        envSetup(IT_PROJECT, APP_NAME, 'latest', true)
 	}
 	
    	stage ('Deploy to PROD') {
         //put into PROD imagestream
         sh "oc tag ${CICD_PROJECT}/${APP_NAME}:latest ${PROD_PROJECT}/${APP_NAME}:latest"
-        envSetup(QA_PROJECT, APP_NAME, 'latest', false)
+        envSetup(PROD_PROJECT, APP_NAME, 'latest', false)
 	}
 
 }
