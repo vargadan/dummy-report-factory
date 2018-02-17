@@ -8,7 +8,7 @@ node('maven') {
    	def PROD_PROJECT = "ctr-prod"
    	def PORT = 8080
    	def GIT_URL = "https://github.com/vargadan/${APP_NAME}.git"
-   	def SKIP_TEST = "true"
+   	def SKIP_TEST = "false"
  
    	stage ('Build & Test') {
    		git branch: 'master', url: "${GIT_URL}"
