@@ -45,9 +45,13 @@ def envSetup(project, appName, version, recreate) {
 		returnStdout: true
 	).trim()
 	echo "GET_DC_OUT : ${GET_DC_OUT}"
-	if (recreate && GET_DC_OUT.contains(appName)) {
+	appExists = GET_DC_OUT.contains(appName)
+	if (appExists && recreate) {
 		sh "oc delete deploymentconfig,service,routes -l app=${appName} -n ${project}"
 		sh "oc new-app ${appName}:${version} -n ${project}"
+   		sh "oc expose svc ${appName} -n ${project}"
+   	} else if (!appExists) {
+ 		sh "oc new-app ${appName}:${version} -n ${project}"
    		sh "oc expose svc ${appName} -n ${project}"
    	}
 }
