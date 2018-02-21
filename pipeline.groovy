@@ -31,13 +31,13 @@ node('maven') {
         sh "oc tag ${CICD_PROJECT}/${APP_NAME}:latest ${IT_PROJECT}/${APP_NAME}:latest"
         envSetup(IT_PROJECT, APP_NAME, 'latest', PORT, true)
 	}
-	
+/*	
    	stage ('Deploy to PROD') {
         //put into PROD imagestream
         sh "oc tag ${CICD_PROJECT}/${APP_NAME}:latest ${PROD_PROJECT}/${APP_NAME}:latest"
         envSetup(PROD_PROJECT, APP_NAME, 'latest', PORT, true)
 	}
-
+*/
 }
 
 def envSetup(project, appName, version, port, recreate) {
